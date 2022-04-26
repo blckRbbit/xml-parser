@@ -1,4 +1,4 @@
-package util;
+package service;
 
 import config.jdbc.JdbcConnectionManager;
 
@@ -12,8 +12,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class UtilPostgreSql {
-    private static final Logger logger = Logger.getLogger(UtilPostgreSql.class.getName());
+public class SqlService {
+    private static final Logger LOGGER = Logger.getLogger(SqlService.class.getName());
     private static final Properties PROPERTIES = new Properties();
     private static final String CREATE_DIRECTORS_TABLE_KEY = "sql.table.directors.create";
     private static final String CREATE_MOVIES_TABLE_KEY = "sql.table.movies.create";
@@ -22,7 +22,7 @@ public class UtilPostgreSql {
         loadProperties();
     }
 
-    private UtilPostgreSql() {}
+    private SqlService() {}
 
     /**
      * Возвращает значение из property-файла по ключу key.
@@ -39,11 +39,11 @@ public class UtilPostgreSql {
      */
     public static void connectToDb() {
         try(Connection connection = JdbcConnectionManager.open()) {
-            logger.log(Level.INFO, "Подключение к базе данных прошло успешно");
+            LOGGER.log(Level.INFO, "Подключение к базе данных прошло успешно");
             createTable(connection, get(CREATE_DIRECTORS_TABLE_KEY));
             createTable(connection, get(CREATE_MOVIES_TABLE_KEY));
         } catch (SQLException e) {
-            logger.log(Level.FINE, String.format("Ошибка при подключении к базе данных: %n %s",  new RuntimeException(e)));
+            LOGGER.log(Level.FINE, String.format("Ошибка при подключении к базе данных: %n %s",  e));
             throw new RuntimeException(e);
         }
     }
@@ -56,9 +56,9 @@ public class UtilPostgreSql {
         try {
             Statement statement = connection.createStatement();
             statement.executeUpdate(sql);
-            logger.log(Level.INFO, "Таблица успешно создана");
+            LOGGER.log(Level.INFO, "Таблица успешно создана");
         } catch (SQLException e) {
-            logger.log(Level.FINE, "Ошибка при создании таблицы: ");
+            LOGGER.log(Level.FINE, "Ошибка при создании таблицы: ", e);
             throw new RuntimeException(e);
         }
     }
@@ -70,10 +70,10 @@ public class UtilPostgreSql {
      * либо путь к файлу указан неверно.
      */
     private static void loadProperties() {
-        try (InputStream inputStream = UtilPostgreSql.class.getClassLoader().getResourceAsStream("application.properties")) {
+        try (InputStream inputStream = SqlService.class.getClassLoader().getResourceAsStream("application.properties")) {
             PROPERTIES.load(inputStream);
         } catch (IOException e) {
-            logger.log(Level.FINE, "Проверьте правильность пути к файлу настроек приложения");
+            LOGGER.log(Level.FINE, "Проверьте правильность пути к файлу настроек приложения", e);
             throw new RuntimeException(e);
         }
     }

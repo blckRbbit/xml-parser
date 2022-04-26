@@ -1,7 +1,7 @@
-import util.UtilPostgreSql;
+import service.SqlService;
 
 public class RunApp {
     public static void main(String[] args) {
-        UtilPostgreSql.connectToDb();
+        SqlService.connectToDb();
     }
 }
