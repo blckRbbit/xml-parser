@@ -35,7 +35,9 @@ public class SqlService {
 
     /**
      * Метод подключения к базе данных
-     * @throws SQLException может произойти, если приложение подключается к несуществующей базе, или неверно указаны пользователь или пароль.
+     * @throws SQLException может произойти,
+     * если приложение подключается к несуществующей базе,
+     * или неверно указаны пользователь или пароль.
      */
     public static void connectToDb() {
         try(Connection connection = JdbcConnectionManager.open()) {
@@ -50,7 +52,8 @@ public class SqlService {
 
     /**
      * Метод создания таблиц в базе данных, если они ещё не существуют
-     * @throws SQLException может произойти, если приложение подключается к несуществующей базе, неверно указаны пользователь или пароль, ошибка в sql-запросе.
+     * @throws SQLException может произойти, если приложение подключается к несуществующей базе,
+     * неверно указаны пользователь или пароль, ошибка в sql-запросе.
      */
     private static void createTable(Connection connection, String sql) {
         try {
