@@ -40,8 +40,8 @@ public class UtilPostgreSql {
     public static void connectToDb() {
         try(Connection connection = JdbcConnectionManager.open()) {
             logger.log(Level.INFO, "Подключение к базе данных прошло успешно");
-            createTable(connection, CREATE_DIRECTORS_TABLE_KEY);
-            createTable(connection, CREATE_MOVIES_TABLE_KEY);
+            createTable(connection, get(CREATE_DIRECTORS_TABLE_KEY));
+            createTable(connection, get(CREATE_MOVIES_TABLE_KEY));
         } catch (SQLException e) {
             logger.log(Level.FINE, String.format("Ошибка при подключении к базе данных: %n %s",  new RuntimeException(e)));
             throw new RuntimeException(e);
@@ -50,22 +50,24 @@ public class UtilPostgreSql {
 
     /**
      * Метод создания таблиц в базе данных, если они ещё не существуют
-     * @throws SQLException может произойти, если приложение подключается к несуществующей базе, или неверно указаны пользователь или пароль.
+     * @throws SQLException может произойти, если приложение подключается к несуществующей базе, неверно указаны пользователь или пароль, ошибка в sql-запросе.
      */
     private static void createTable(Connection connection, String sql) {
         try {
             Statement statement = connection.createStatement();
             statement.executeUpdate(sql);
-            logger.log(Level.INFO, "Таблица directors успешно создана");
+            logger.log(Level.INFO, "Таблица успешно создана");
         } catch (SQLException e) {
-            logger.log(Level.FINE, String.format("Ошибка при создании таблицы directors: %n %s",  new RuntimeException(e)));
+            logger.log(Level.FINE, "Ошибка при создании таблицы: ");
             throw new RuntimeException(e);
         }
     }
 
     /**
      * Метод получения значений из файла application.properties
-     * @throws IOException может произойти, если файл с настройками не существует, либо путь к файлу указан неверно.
+     * @throws IOException может произойти,
+     * если файл с настройками не существует,
+     * либо путь к файлу указан неверно.
      */
     private static void loadProperties() {
         try (InputStream inputStream = UtilPostgreSql.class.getClassLoader().getResourceAsStream("application.properties")) {
