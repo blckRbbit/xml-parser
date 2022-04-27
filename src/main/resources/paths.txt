@@ -1,0 +1,5 @@
+C:\WORK\code\my_code\test\xml-parser\src\main\resources\example.xml
+
+C:\WORK\code\my_code\test\xml-parser\src\main\resources\example2.xml
+
+Movie

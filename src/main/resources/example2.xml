@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.adventure-works.com ">
+    <Movies>
+
+        <Movie MovieID="1">
+            <MovieTitle>ВСЯ НАША НАДЕЖДА</MovieTitle>
+            <MovieDirector>Карен Геворкян</MovieDirector>
+            <ReleaseYear>2016</ReleaseYear>
+        </Movie>
+
+        <Movie MovieID="2">
+            <MovieTitle>ВЛАСТЕЛИН КОЛЕЦ</MovieTitle>
+            <MovieDirector>Питер Джэксон</MovieDirector>
+            <ReleaseYear>2005</ReleaseYear>
+        </Movie>
+
+        <Movie MovieID="3">
+            <MovieTitle>ДАЧНИКИ</MovieTitle>
+            <MovieDirector>Александр Вартанов</MovieDirector>
+            <ReleaseYear>2016</ReleaseYear>
+        </Movie>
+    </Movies>
+</Root>

@@ -10,7 +10,8 @@ repositories {
 }
 
 dependencies {
-    implementation group: 'org.postgresql', name: 'postgresql', version: '42.3.4'
+    implementation 'com.h2database:h2:1.4.200'
+    testImplementation 'com.h2database:h2:2.1.212'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
