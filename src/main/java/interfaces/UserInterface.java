@@ -11,17 +11,15 @@ public class UserInterface {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void run() {
-        do {
+        LOGGER.log(Level.INFO, "Чтобы начать, нажмите Enter...");
+        while (!scanner.nextLine().equalsIgnoreCase("q")) {
             LOGGER.log(Level.INFO, String.format("Введите путь к файлу: %n"));
             String path = scanner.nextLine();
             LOGGER.log(Level.INFO, String.format("Введите тэг для поиска сущности для парсинга: %n"));
             String tag = scanner.nextLine();
-            if (scanner.nextLine().equalsIgnoreCase("q")) {
-                break;
-            } else {
-                SqlService.run(path, tag);
-            }
-        } while (true);
-
+            SqlService.run(path, tag);
+            LOGGER.log(Level.INFO, "Для продолжения нажмите Enter, для выхода - q...");
         }
+
+    }
 }

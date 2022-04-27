@@ -37,7 +37,10 @@ public class XmlParser {
         Document document = documentBuilder.parse(xmlFile);
         document.getDocumentElement().normalize();
         NodeList nodeList = document.getElementsByTagName(tag);
-
+        if (nodeList.getLength()==0) {
+            LOGGER.log(Level.WARNING, "Такого тэга нет в документе!");
+            System.exit(1);
+        }
         Set<String> insertions = parseXML(nodeList);
 
         List<String[]> rows = new ArrayList<>();

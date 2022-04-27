@@ -3,17 +3,33 @@ plugins {
 }
 
 group 'org.example'
-version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
 }
 
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'RunApp'
+        )
+    }
+}
+
 dependencies {
-    implementation 'com.h2database:h2:1.4.200'
-    testImplementation 'com.h2database:h2:2.1.212'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.3.4'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+}
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Jar File Example',
+                'Main-Class': 'RunApp'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }
 
 test {

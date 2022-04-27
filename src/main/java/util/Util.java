@@ -1,7 +1,5 @@
 package util;
 
-import service.SqlService;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;

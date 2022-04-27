@@ -1,6 +1,5 @@
 package config.jdbc;
 
-import service.SqlService;
 import util.Util;
 
 import java.sql.Connection;
