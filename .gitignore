@@ -1,5 +1,6 @@
 application.properties
 paths.txt
+docker-compose.yaml
 /.idea
 .class
 /out

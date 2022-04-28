@@ -31,7 +31,7 @@ public class SqlService {
             createTable(connection, Util.createMoviesTableProperty());
             fastInsert(Objects.requireNonNull(XmlParser.getRows(path, tag)), connection);
         } catch (SQLException e) {
-            LOGGER.log(Level.WARNING, String.format("Ошибка при подключении к базе данных: %n %s", e));
+            LOGGER.log(Level.WARNING, "Ошибка при подключении к базе данных.");
         }
     }
 
@@ -46,7 +46,7 @@ public class SqlService {
             statement.executeUpdate(sql);
             LOGGER.log(Level.INFO, "Таблица успешно создана");
         } catch (SQLException e) {
-            LOGGER.log(Level.WARNING, String.format("Ошибка при создании таблицы: %n %s", e));
+            LOGGER.log(Level.WARNING, "Ошибка при создании таблицы.");
         }
     }
 
@@ -68,10 +68,10 @@ public class SqlService {
                 preparedStatementMovies.addBatch();
             }
             preparedStatementMovies.executeBatch();
-            LOGGER.log(Level.INFO, "Данные успешно добавлены в таблицу");
+            LOGGER.log(Level.INFO, "Данные успешно добавлены в таблицу.");
             getCountRowsInTable(Util.getCountRows(), connection);
         } catch (SQLException e) {
-            LOGGER.log(Level.WARNING, "Ошибка при быстрой вставке в таблицу sql: ", e);
+            LOGGER.log(Level.WARNING, "Ошибка при быстрой вставке в таблицу sql.");
         }
     }
 
@@ -87,7 +87,7 @@ public class SqlService {
                 LOGGER.log(Level.INFO, String.format("Кол-во записей в таблице: %s", resultSet.getString(1)));
             }
         } catch (SQLException e) {
-            LOGGER.log(Level.WARNING, "Ошибка при подсчете строк в sql-таблице: ", e);
+            LOGGER.log(Level.WARNING, "Ошибка при подсчете строк в sql-таблице.");
         }
     }
 }

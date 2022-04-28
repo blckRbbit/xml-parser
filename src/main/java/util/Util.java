@@ -72,8 +72,8 @@ public class Util {
 
     /**
      * Возвращает значение property по ключу
-     * @param key
-     * @return
+     * @param key - ключ в файле application.properties
+     * @return возвращает сущность Property
      */
     private static String get(String key) {
         return PROPERTIES.getProperty(key);

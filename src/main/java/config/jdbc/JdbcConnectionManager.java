@@ -5,8 +5,12 @@ import util.Util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class JdbcConnectionManager {
+
+    private static final Logger LOGGER = Logger.getLogger(JdbcConnectionManager.class.getName());
     static {
         loadDriver();
     }
@@ -26,6 +30,7 @@ public class JdbcConnectionManager {
                     Util.getPassword()
             );
         } catch (SQLException e) {
+            LOGGER.log(Level.WARNING, "Неверные данные для подключения к БД (проверьте хост, порт, пользователя и пароль для подключения к БД)");
             throw new RuntimeException(e);
         }
     }
@@ -38,6 +43,7 @@ public class JdbcConnectionManager {
         try {
             Class.forName(Util.getDriver());
         } catch (ClassNotFoundException e) {
+            LOGGER.log(Level.WARNING, "Не подключен JDBC-драйвер");
             throw new RuntimeException(e);
         }
     }

@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.zip.DataFormatException;
 
 /**
  * В классе реализована логика парсинга данных из xml-файла.
@@ -30,7 +31,7 @@ public class XmlParser {
      * @throws IOException - обрабатывается в методе-обертке getRows()
      * @throws SAXException - обрабатывается в методе-обертке getRows()
      */
-    private static List<String[]> parse(String path, String tag) throws ParserConfigurationException, IOException, SAXException {
+    private static List<String[]> parse(String path, String tag) throws ParserConfigurationException, IOException, SAXException, DataFormatException {
         File xmlFile = new File(path);
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -39,7 +40,7 @@ public class XmlParser {
         NodeList nodeList = document.getElementsByTagName(tag);
         if (nodeList.getLength()==0) {
             LOGGER.log(Level.WARNING, "Такого тэга нет в документе!");
-            System.exit(1);
+            throw new DataFormatException("Такого тэга нет в документе!");
         }
         Set<String> insertions = parseXML(nodeList);
 
@@ -84,11 +85,13 @@ public class XmlParser {
             result = parse(path, tag);
             return result;
         } catch (ParserConfigurationException e) {
-            LOGGER.log(Level.WARNING, "Ошибка синтаксиса в xml-файле: ", e);
+            LOGGER.log(Level.WARNING, "Ошибка синтаксиса в xml-файле.");
         } catch (IOException e) {
-            LOGGER.log(Level.WARNING, "Файл не найден. Проверьте правильность пути: ", e);
+            LOGGER.log(Level.WARNING, "Файл не найден. Проверьте правильность пути.");
         } catch (SAXException e) {
-            LOGGER.log(Level.WARNING, "Ошибка при парсинге файла: ", e);
+            LOGGER.log(Level.WARNING, "Ошибка при парсинге файла.");
+        } catch (DataFormatException e) {
+            LOGGER.log(Level.WARNING, "Такого тэга нет в документе!");
         }
         return null;
     }
